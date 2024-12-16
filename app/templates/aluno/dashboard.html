@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard do Aluno{% endblock %}
+
+{% block content %}
+<h2>Bem-vindo, {{ session['email'] }}</h2>
+<p>Aqui estão seus pedidos de TCC:</p>
+
+{% if pedidos %}
+<ul>
+    {% for pedido in pedidos %}
+    <li>
+        Título: {{ pedido.title }} | Status: {{ pedido.status }}
+        <a href="{{ url_for('aluno.detalhes_pedido', pedido_id=pedido.id) }}">Detalhes</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Você ainda não fez nenhum pedido de TCC.</p>
+{% endif %}
+
+<a href="{{ url_for('aluno.cadastrar_pedido') }}">Cadastrar novo pedido</a>
+{% endblock %}

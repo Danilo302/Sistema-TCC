@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard da Secretaria{% endblock %}
+
+{% block content %}
+<h2>Pedidos de TCC</h2>
+<ul>
+    {% for pedido in pedidos %}
+    <li>
+        Título: {{ pedido.title }} | Aluno: {{ pedido.aluno_email }}
+        <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}">Detalhes</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

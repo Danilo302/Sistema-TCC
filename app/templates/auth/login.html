@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Sistema de TCC{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Login</h2>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <button type="submit">Entrar</button>
+    </form>
+    <p>Não tem uma conta? <a href="{{ url_for('auth.register') }}">Registre-se aqui</a></p>
+</div>
+{% endblock %}
