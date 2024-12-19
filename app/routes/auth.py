@@ -42,24 +42,26 @@ def login():
             user_data = response.data[0]
             
             try:
-                response = supabase_client.table("usuarios").select("*").eq("senha", f"{password}").execute()
+                #corrigir isso
+                
+                if user_data["senha"] == password:
+                    print(response.data[0])
+                    
 
-                print(response.data[0])
-                user_data = response.data[0]
+                    if user_data:
+                        # Configurar dados da sessão
+                        session['user_id'] = user_data['id']
+                        session['nome'] = user_data['nome']
+                        session['email'] = user_data['email']
+                        session['role'] = user_data['tipo']  
 
-                if user_data:
-                    # Configurar dados da sessão
-                    session['user_id'] = user_data['id']
-                    session['email'] = user_data['email']
-                    session['role'] = user_data['tipo']  # Default para "aluno"
-
-                    # Redireciona baseado no tipo de usuário
-                    if session['role'] == 'aluno':
-                        return redirect(url_for('aluno.dashboard'))
-                    elif session['role'] == 'secretaria':
-                        return redirect(url_for('secretaria.dashboard'))
-                else:
-                    flash('Falha no login. Verifique suas credenciais.', 'danger')
+                        # Redireciona baseado no tipo de usuário
+                        if session['role'] == 'aluno':
+                            return redirect(url_for('aluno.dashboard'))
+                        elif session['role'] == 'secretaria':
+                            return redirect(url_for('secretaria.dashboard'))
+                    else:
+                        flash('Falha no login. Verifique suas credenciais.', 'danger')
             except Exception as e:
                 print('erro. senha incorreta.')
         except Exception as e:

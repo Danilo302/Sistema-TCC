@@ -3,7 +3,7 @@
 {% block title %}Dashboard do Aluno{% endblock %}
 
 {% block content %}
-<h2>Bem-vindo, {{ session['email'] }}</h2>
+<h2>Bem-vindo, {{ session['nome'] }}</h2>
 <p>Aqui estão seus pedidos de TCC:</p>
 
 {% if pedidos %}
