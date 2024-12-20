@@ -1,6 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 import supabase
 from app.config import SUPABASE_KEY, SUPABASE_URL
+import json
+
+with open("app/utils/keywords.json", encoding='utf-8') as keywordsjson:
+    keys = json.load(keywordsjson)
+    
+with open("app/utils/cutter.json", encoding='utf-8') as cutter:
+    codCutter = json.load(cutter)
 
 supabase_client = supabase.create_client(SUPABASE_URL, SUPABASE_KEY)
 
@@ -40,7 +47,7 @@ def cadastrar_pedido():
         
         
         
-        response = supabase_client.table('pedidos').insert({
+        response = (supabase_client.table('pedidos').insert({
             "id_aluno": session['user_id'],
             "nome_autor": nomeAutor,
             "sobrenome_autor": sobrenomeAutor,
@@ -60,9 +67,9 @@ def cadastrar_pedido():
             "palavras_chaves": keywords,
             "cod_cutter": cutter,
             "cdd": cdd
-        }).execute()
+        }).execute())
         
         
         flash('Pedido cadastrado com sucesso!', 'success')
         return redirect(url_for('aluno.dashboard'))
-    return render_template('aluno/cadastrar_pedido.html')
+    return render_template('aluno/cadastrar_pedido.html',keywords = keys,cod_cutter = codCutter )

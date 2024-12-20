@@ -92,7 +92,9 @@
             <h3> Para preencher o campo abaixo, escolha o item da tabela CDD que mais se identifica com o resumo do seu TCC.</h3>
             
             <select id="cdd" name="cdd" required>
-                
+                {% for key, value in keywords.items() %}
+                <option value= '{{ key }} '>{{value}} - {{key}}</option>
+                {% endfor %}
             </select>
             
             
@@ -101,4 +103,5 @@
 
         
     </div>
+    <script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
 {% endblock %}
