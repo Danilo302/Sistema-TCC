@@ -8,12 +8,10 @@
 
 {% if pedidos %}
 <ul>
-    {% for pedido in pedidos %}
     <li>
-        Título: {{ pedido.title }} | Status: {{ pedido.status }}
-        <a href="{{ url_for('aluno.detalhes_pedido', pedido_id=pedido.id) }}">Detalhes</a>
+        Título: {{ pedidos.titulo }} | Status: {{ pedidos.cod_cutter }}
+        <a href="{{ url_for('aluno.detalhes_pedido', pedido_id=pedidos.id) }}">Detalhes</a>
     </li>
-    {% endfor %}
 </ul>
 {% else %}
 <p>Você ainda não fez nenhum pedido de TCC.</p>

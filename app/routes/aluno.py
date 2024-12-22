@@ -1,13 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 import supabase
 from app.config import SUPABASE_KEY, SUPABASE_URL
+from app.utils.gerador_cutter import geradorCutter
 import json
 
 with open("app/utils/keywords.json", encoding='utf-8') as keywordsjson:
     keys = json.load(keywordsjson)
     
-with open("app/utils/cutter.json", encoding='utf-8') as cutter:
-    codCutter = json.load(cutter)
 
 supabase_client = supabase.create_client(SUPABASE_URL, SUPABASE_KEY)
 
@@ -17,9 +16,12 @@ aluno_bp = Blueprint('aluno', __name__, url_prefix='/aluno')
 def dashboard():
     if 'role' in session and session['role'] == 'aluno':
         
-        #response = supabase_client.table('pedidos').select()
+        response = supabase_client.table('pedidos').select("*").eq("id_aluno", f"{session['user_id']}").execute()
+        
         # Carregar os pedidos do aluno
-        return render_template('aluno/dashboard.html')
+        pedidoUser = response.data[0]
+        print(pedidoUser)
+        return render_template('aluno/dashboard.html',pedidos = pedidoUser)
     flash('Acesso não autorizado.', 'danger')
     return redirect(url_for('auth.login'))
 
@@ -40,9 +42,9 @@ def cadastrar_pedido():
         ilustracao = request.form.get("ilustracaoCheckbox")
         tabela = request.form.get("tabelaCheckbox")
         tamanho = request.form.get("tamanho")
-        bibliografia = request.fotm.get("bibliografia")
+        bibliografia = request.form.get("bibliografia")
         keywords =  request.form.get("keywords")
-        cutter =  request.form.get("cutter")
+        cutter =  geradorCutter(sobrenomeAutor,titulo)
         cdd =  request.form.get("cdd")
         
         
@@ -72,4 +74,11 @@ def cadastrar_pedido():
         
         flash('Pedido cadastrado com sucesso!', 'success')
         return redirect(url_for('aluno.dashboard'))
-    return render_template('aluno/cadastrar_pedido.html',keywords = keys,cod_cutter = codCutter )
+    return render_template('aluno/cadastrar_pedido.html',keywords = keys )
+
+@aluno_bp.route('/detalhes_pedido/<int:pedido_id>')
+def detalhes_pedido(pedido_id):
+    # Carregar informações do pedido
+    ##return render_template('secretaria/detalhes_pedido.html', pedido_id=pedido_id)
+    pass
+
