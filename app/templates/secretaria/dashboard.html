@@ -7,7 +7,7 @@
 <ul>
     {% for pedido in pedidos %}
     <li>
-        Título: {{ pedido.title }} | Aluno: {{ pedido.aluno_email }}
+        Título: {{ pedido.titulo }} | Aluno: {{ pedido.nome_autor }}
         <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}">Detalhes</a>
     </li>
     {% endfor %}

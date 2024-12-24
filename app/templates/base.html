@@ -9,6 +9,16 @@
 <body>
     <header>
         <h1>Sistema de TCC</h1>
+
+        <a href="{{ url_for('auth.logout') }}">Sair</a>
+        
+        {% if  session['role'] == 'aluno' %}
+            <a href="{{ url_for('aluno.dashboard') }}" class="btn btn-primary">Voltar para a Homepage</a>
+
+        {% elif session['role'] == 'secretaria' %}
+        <a href="{{ url_for('secretaria.dashboard') }}" class="btn btn-primary">Voltar para a Homepage</a>
+
+        {% endif %}
     </header>
     <main>
         {% block content %}{% endblock %}

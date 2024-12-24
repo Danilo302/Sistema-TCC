@@ -24,17 +24,19 @@
                 <p class="card-text"><strong>CDD:</strong> {{ pedido.cdd }}</p>
                 <p class="card-text"><strong>Tamanho:</strong> {{ pedido.tamanho }}</p>
                 <p class="card-text"><strong>Status:</strong> {{ pedido.status }}</p>
-                <p class="card-text"><strong>Data de Envio:</strong> {{ pedido.data_envio }}</p>
+                <p class="card-text"><strong>Data de Envio:</strong> {{ pedido.data_envio[:10] | replace('-', '/') }}</p>
             </div>
         </div>
 
         <hr>
-        <form method="POST">
-            <button type="submit" name="acao" value="aprovar" class="btn btn-success">Aprovar</button>
-            <button type="submit" name="acao" value="rejeitar" class="btn btn-danger">Rejeitar</button>
-        </form>
+        
+            <button type="button" name="acao" value="aprovar" class="btn btn-success" onclick="confirmarAcao('aprovar','{{ pedido.id }}')">Aprovar</button>
+            <button type="button" name="acao" value="rejeitar" class="btn btn-danger" onclick="confirmarAcao('rejeitar','{{ pedido.id }}')">Rejeitar</button>
+        <form id="confirmForm" method="POST" style="display: none;" ></form>
     {% else %}
         <p class="text-danger">Pedido não encontrado.</p>
     {% endif %}
+
 </div>
+<script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
 {% endblock %}
