@@ -9,7 +9,8 @@
 {% if pedidos %}
 <ul>
     <li>
-        Título: {{ pedidos.titulo }} | Status: {{ pedidos.cod_cutter }}
+        Título: {{ pedidos.titulo }} | Status: {{ pedidos.status }}
+        
         <a href="{{ url_for('aluno.detalhes_pedido', pedido_id=pedidos.id) }}">Detalhes</a>
     </li>
 </ul>

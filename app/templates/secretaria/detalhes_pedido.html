@@ -1,24 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}Detalhes do Pedido{% endblock %}
-
 {% block content %}
-<h2>Detalhes do Pedido</h2>
-<p><strong>Título:</strong> {{ pedido.title }}</p>
-<p><strong>Aluno:</strong> {{ pedido.aluno_email }}</p>
-<p><strong>Orientador:</strong> {{ pedido.advisor }}</p>
-<p><strong>Ano:</strong> {{ pedido.year }}</p>
-<p><strong>Resumo:</strong> {{ pedido.abstract }}</p>
-<p><strong>Palavras-chave:</strong> {{ pedido.keywords }}</p>
+<div class="container mt-5">
+    <h1>Detalhes do Pedido</h1>
+    <hr>
+    {% if pedido %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Título: {{ pedido.titulo }}</h5>
+                <p class="card-text"><strong>Subtítulo:</strong> {{ pedido.sub_titulo or "Não informado" }}</p>
+                <p class="card-text"><strong>Autor:</strong> {{ pedido.nome_autor }} {{ pedido.sobrenome_autor }}</p>
+                <p class="card-text"><strong>Coautor:</strong> {{ pedido.nome_coautor }} {{ pedido.sobrenome_coautor }}</p>
+                <p class="card-text"><strong>Curso:</strong> {{ pedido.curso }}</p>
+                <p class="card-text"><strong>Ano de Publicação:</strong> {{ pedido.ano_publicacao }}</p>
+                <p class="card-text"><strong>Instituição:</strong> {{ pedido.instituicao }}</p>
+                <p class="card-text"><strong>Cidade:</strong> {{ pedido.cidade }}</p>
+                <p class="card-text"><strong>Número de Páginas:</strong> {{ pedido.numero_pag }}</p>
+                <p class="card-text"><strong>Ilustração:</strong> {{ pedido.ilustracao or "Não informado" }}</p>
+                <p class="card-text"><strong>Tabela:</strong> {{ pedido.tabela or "Não informado" }}</p>
+                <p class="card-text"><strong>Bibliografia:</strong> {{ pedido.bibliografia }}</p>
+                <p class="card-text"><strong>Palavras-Chave:</strong> {{ pedido.palavras_chaves }}</p>
+                <p class="card-text"><strong>Código Cutter:</strong> {{ pedido.cod_cutter }}</p>
+                <p class="card-text"><strong>CDD:</strong> {{ pedido.cdd }}</p>
+                <p class="card-text"><strong>Tamanho:</strong> {{ pedido.tamanho }}</p>
+                <p class="card-text"><strong>Status:</strong> {{ pedido.status }}</p>
+                <p class="card-text"><strong>Data de Envio:</strong> {{ pedido.data_envio }}</p>
+            </div>
+        </div>
 
-<form method="POST" action="{{ url_for('secretaria.aprovar_pedido', pedido_id=pedido.id) }}">
-    <button type="submit">Aprovar Pedido</button>
-</form>
-
-<form method="POST" action="{{ url_for('secretaria.rejeitar_pedido', pedido_id=pedido.id) }}">
-    <textarea name="motivo_rejeicao" placeholder="Motivo da rejeição" required></textarea>
-    <button type="submit">Rejeitar Pedido</button>
-</form>
-
-<a href="{{ url_for('secretaria.gerar_ficha', pedido_id=pedido.id) }}">Gerar Ficha Catalográfica</a>
+        <hr>
+        <form method="POST">
+            <button type="submit" name="acao" value="aprovar" class="btn btn-success">Aprovar</button>
+            <button type="submit" name="acao" value="rejeitar" class="btn btn-danger">Rejeitar</button>
+        </form>
+    {% else %}
+        <p class="text-danger">Pedido não encontrado.</p>
+    {% endif %}
+</div>
 {% endblock %}

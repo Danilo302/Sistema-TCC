@@ -76,9 +76,10 @@ def cadastrar_pedido():
         return redirect(url_for('aluno.dashboard'))
     return render_template('aluno/cadastrar_pedido.html',keywords = keys )
 
-@aluno_bp.route('/detalhes_pedido/<int:pedido_id>')
+@aluno_bp.route('/detalhes_pedido/<uuid:pedido_id>')
 def detalhes_pedido(pedido_id):
-    # Carregar informações do pedido
-    ##return render_template('secretaria/detalhes_pedido.html', pedido_id=pedido_id)
-    pass
+    
+    response = supabase_client.table('pedidos').select("*").eq("id", f"{pedido_id}").execute()
+    pedidoUser = response.data[0]
+    return render_template('aluno/detalhes.html', pedido_id=pedido_id, pedido = pedidoUser)
 
