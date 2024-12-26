@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for,send_file, jsonify
 from app.config import supabase_client
+import os
 
 secretaria_bp = Blueprint('secretaria', __name__, url_prefix='/secretaria')
 

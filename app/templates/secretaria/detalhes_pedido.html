@@ -7,7 +7,7 @@
     {% if pedido %}
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Título: {{ pedido.titulo }}</h5>
+                <h2 class="card-title">Título: {{ pedido.titulo }}</h2>
                 <p class="card-text"><strong>Subtítulo:</strong> {{ pedido.sub_titulo or "Não informado" }}</p>
                 <p class="card-text"><strong>Autor:</strong> {{ pedido.nome_autor }} {{ pedido.sobrenome_autor }}</p>
                 <p class="card-text"><strong>Coautor:</strong> {{ pedido.nome_coautor }} {{ pedido.sobrenome_coautor }}</p>
@@ -37,6 +37,15 @@
         <p class="text-danger">Pedido não encontrado.</p>
     {% endif %}
 
+    <div id="result" class="result"></div>
+
+        <button id="downloadPdf" style="display:none;">Baixar Ficha em PDF</button>
+    </div>
+
 </div>
+<div id="pedido" style= "display:none">{{pedido}}</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="{{ url_for('static',filename = 'js/gerador_ficha.js')}}"></script>
 <script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
 {% endblock %}
