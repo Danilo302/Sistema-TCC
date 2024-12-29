@@ -151,3 +151,31 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.result {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #e9f5ff;
+    border: 1px solid #cce5ff;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+    color: #343a40;
+}
+
+#downloadPdf {
+    margin-top: 10px;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    text-align:justify;
+}
+
+#downloadPdf:hover {
+    background-color: #218838;
+    transform: translateY(-2px); 
+}
