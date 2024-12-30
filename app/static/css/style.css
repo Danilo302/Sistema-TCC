@@ -2,180 +2,59 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f9;
 }
 
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1em;
-    text-align: center;
-}
-
-form {
-    margin: 2em auto;
-    max-width: 400px;
+.header {
     display: flex;
-    flex-direction: column;
-}
-
-form label {
-    margin-top: 1em;
-}
-
-form input, form textarea, form select, form button {
-    padding: 0.5em;
-    margin-top: 0.5em;
-}
-
-form button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #45a049;
-}
-
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
-}
-
-h1, h2, h3 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-h1 {
-    text-align: center;
-    font-size: 28px;
-}
-
-h3 {
-    font-size: 14px;
-    color: #7f8c8d;
-    margin-bottom: 10px;
-}
-
-label {
-    font-weight: bold;
-    margin-top: 15px;
-    display: block;
-    font-size: 14px;
-    color: #34495e;
-}
-
-input, select, button {
-    width: 100%;
-    margin-top: 8px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #bdc3c7;
-    font-size: 14px;
-    color: #2c3e50;
-    box-sizing: border-box;
-}
-
-input:focus, select:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-}
-
-button {
-    background-color: #3498db;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: none;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-#downloadPdf {
-    margin-top: 20px;
-    width: auto;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
+    background-color: #004085;
+    color: white;
 }
 
-input[type="checkbox"] {
-    width: auto;
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
     margin-right: 10px;
 }
 
-input[readonly] {
-    background-color: #ecf0f1;
-    color: #7f8c8d;
-    cursor: not-allowed;
+h1 {
+    margin: 0;
 }
 
-.result {
-    margin-top: 20px;
-    background-color: #ecf0f1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #bdc3c7;
-    font-size: 14px;
-    color: #2c3e50;
+.nav-buttons {
+    display: flex;
+    gap: 15px;
 }
 
-#ilustracaoField, #tabelaField {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-select {
-    background-color: #fff;
-    cursor: pointer;
-}
-
-a {
-    color: #3498db;
+.btn-icon {
     text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-.result {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #e9f5ff;
-    border: 1px solid #cce5ff;
-    border-radius: 5px;
-    white-space: pre-wrap;
-    font-family: 'Courier New', monospace;
-    color: #343a40;
-}
-
-#downloadPdf {
-    margin-top: 10px;
-    padding: 12px;
-    background-color: #28a745;
     color: white;
-    font-size: 1rem;
-    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #0069d9;
+    padding: 8px 15px;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; 
-    text-align:justify;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-#downloadPdf:hover {
-    background-color: #218838;
-    transform: translateY(-2px); 
+.btn-icon:hover {
+    background-color: #0056b3;
+}
+
+.fas {
+    font-size: 16px;
+}
+
+main {
+    padding: 20px;
 }

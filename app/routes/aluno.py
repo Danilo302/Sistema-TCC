@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from app.config import supabase_client
 from app.utils.gerador_cutter import geradorCutter
+from app.routes.auth import aluno_required
 import json
 
 with open("app/utils/keywords.json", encoding='utf-8') as keywordsjson:
@@ -11,7 +12,9 @@ with open("app/utils/keywords.json", encoding='utf-8') as keywordsjson:
 
 aluno_bp = Blueprint('aluno', __name__, url_prefix='/aluno')
 
+
 @aluno_bp.route('/dashboard')
+@aluno_required
 def dashboard():
     if 'role' in session and session['role'] == 'aluno':
         
@@ -25,6 +28,7 @@ def dashboard():
     return redirect(url_for('auth.login'))
 
 @aluno_bp.route('/cadastrar_pedido', methods=['GET', 'POST'])
+@aluno_required
 def cadastrar_pedido():
     if request.method == 'POST':
         nomeAutor = request.form.get("nomeAutor")
@@ -76,6 +80,7 @@ def cadastrar_pedido():
     return render_template('aluno/cadastrar_pedido.html',keywords = keys )
 
 @aluno_bp.route('/detalhes_pedido/<uuid:pedido_id>', methods=['GET', 'POST'])
+@aluno_required
 def detalhes_pedido(pedido_id):
     
     response = supabase_client.table('pedidos').select("*").eq("id", f"{pedido_id}").execute()

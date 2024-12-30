@@ -1,12 +1,34 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
-import supabase
-from app.config import SUPABASE_URL, SUPABASE_KEY
+from app.config import supabase_client
+from functools import wraps
 
-# Inicializa o cliente Supabase
-supabase_client = supabase.create_client(SUPABASE_URL, SUPABASE_KEY)
+
 
 # Blueprint para as rotas de autenticação
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+
+def aluno_required(f):
+    """Decorator para verificar se o usuário é um aluno."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('role') != 'aluno':
+            flash("Acesso restrito. Faça login como aluno.", "danger")
+            return redirect(url_for('auth.login'))  # Redireciona para a página de login
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+def secretaria_required(f):
+    """Decorator para verificar se o usuário é da secretaria."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('role') != 'secretaria':
+            flash("Acesso restrito. Faça login como secretaria.", "danger")
+            return redirect(url_for('login'))  # Redireciona para a página de login
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 #Rota para teste
 @auth_bp.route('/listar', methods=['GET'])

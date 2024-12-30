@@ -3,13 +3,33 @@
 {% block title %}Dashboard da Secretaria{% endblock %}
 
 {% block content %}
-<h2>Pedidos de TCC</h2>
-<ul>
-    {% for pedido in pedidos %}
-    <li>
-        Título: {{ pedido.titulo }} | Aluno: {{ pedido.nome_autor }}
-        <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}">Detalhes</a>
-    </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/secretaria.css') }}">
+
+<div class="dashboard-container">
+    <h2>Pedidos de TCC</h2>
+
+    <!-- Filtro de Status -->
+    <div class="filter-container">
+        <label for="statusFilter">Filtrar por Status:</label>
+        <select id="statusFilter" class="form-select">
+            <option value="todos">Todos</option>
+            <option value="Pendente">Pendentes</option>
+            <option value="Aprovado">Aprovados</option>
+            <option value="Rejeitado">Rejeitados</option>
+        </select>
+    </div>
+
+    <!-- Lista de Pedidos -->
+    <ul id="pedidoList" class="pedido-list">
+        {% for pedido in pedidos %}
+        <li class="pedido-item" data-status="{{ pedido.status }}">
+            <strong>Título:</strong> {{ pedido.titulo }} <br>
+            <strong>Aluno:</strong> {{ pedido.nome_autor }} <br>
+            <strong>Status:</strong> {{ pedido.status }} <br>
+            <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}" class="btn-detalhes">Detalhes</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
+{% endblock%}

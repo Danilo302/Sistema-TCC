@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for,send_file, jsonify
 from app.config import supabase_client
-import os
+from app.routes.auth import secretaria_required
 
 secretaria_bp = Blueprint('secretaria', __name__, url_prefix='/secretaria')
 
 @secretaria_bp.route('/dashboard')
+@secretaria_required
 def dashboard():
     if 'role' in session and session['role'] == 'secretaria':
         # Carregar os pedidos dos alunos
@@ -20,6 +21,7 @@ def dashboard():
     return redirect(url_for('auth.login'))
 
 @secretaria_bp.route('/detalhes_pedido/<uuid:pedido_id>', methods=['GET', 'POST'])
+@secretaria_required
 def detalhes_pedido(pedido_id):
     # Carregar informações do pedido
     response = supabase_client.table('pedidos').select("*").eq("id", f"{pedido_id}").execute()
