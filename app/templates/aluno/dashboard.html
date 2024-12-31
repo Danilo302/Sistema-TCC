@@ -3,6 +3,7 @@
 {% block title %}Dashboard do Aluno{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/aluno.css') }}">
 <h2>Bem-vindo, {{ session['nome'] }}</h2>
 <p>Aqui estão seus pedidos de TCC:</p>
 

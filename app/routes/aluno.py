@@ -21,7 +21,7 @@ def dashboard():
         response = supabase_client.table('pedidos').select("*").eq("id_aluno", f"{session['user_id']}").execute()
         
         # Carregar os pedidos do aluno
-        pedidoUser = response.data[0]
+        pedidoUser = response.data[0] if response.data else None
         
         return render_template('aluno/dashboard.html',pedidos = pedidoUser)
     flash('Acesso não autorizado.', 'danger')
@@ -42,8 +42,8 @@ def cadastrar_pedido():
         instituicao = request.form.get("instituicao")
         cidade = request.form.get("cidade")
         paginas = request.form.get("paginas")
-        ilustracao = request.form.get("ilustracaoCheckbox")
-        tabela = request.form.get("tabelaCheckbox")
+        ilustracao = request.form.get("ilustracao")
+        tabela = request.form.get("tabela")
         tamanho = request.form.get("tamanho")
         bibliografia = request.form.get("bibliografia")
         keywords =  request.form.get("keywords")
@@ -72,6 +72,7 @@ def cadastrar_pedido():
             "palavras_chaves": keywords,
             "cod_cutter": cutter,
             "cdd": cdd
+            
         }).execute())
         
         
@@ -86,31 +87,40 @@ def detalhes_pedido(pedido_id):
     response = supabase_client.table('pedidos').select("*").eq("id", f"{pedido_id}").execute()
     pedidoUser = response.data[0]
 
-    if request.method == 'POST' and pedidoUser['status'] == 'pendente':
-            # Obtém dados do formulário
-            dados_atualizados = {
-                'titulo': request.form.get('titulo'),
-                'sub_titulo': request.form.get('sub_titulo'),
-                'curso': request.form.get('curso'),
-                'nome_autor': request.form.get('nome_autor'),
-                'sobrenome_autor': request.form.get('sobrenome_autor'),
-                'nome_coautor': request.form.get('nome_coautor'),
-                'sobrenome_coautor': request.form.get('sobrenome_coautor'),
-                'ano_publicacao': request.form.get('ano_publicacao'),
-                'instituicao': request.form.get('instituicao'),
-                'cidade': request.form.get('cidade'),
-                'numero_pag': request.form.get('numero_pag'),
-                'ilustracao': request.form.get('ilustracao'),
-                'tabela': request.form.get('tabela'),
-                'bibliografia': request.form.get('bibliografia'),
-                'palavras_chaves': request.form.get('palavras_chaves'),
-                'cod_cutter': geradorCutter(request.form.get('sobrenome_autor'),request.form.get('titulo')),
-                'cdd': request.form.get('cdd'),
-                'tamanho': request.form.get('tamanho'),
-            }
+    if request.method == 'POST':
+        if 'delete' in request.form:  # Verifica se a ação é deletar
+            if pedidoUser['status'] == 'pendente':  # Apenas pedidos pendentes podem ser deletados
+                supabase_client.table('pedidos').delete().eq('id', pedido_id).execute()
+                flash("Pedido deletado com sucesso!", "success")
+                return redirect(url_for('aluno.dashboard'))
+            else:
+                flash("Apenas pedidos com status 'pendente' podem ser deletados.", "danger")
+        else:  # Atualizar pedido
+            if pedidoUser['status'] == 'pendente':
+                # Obtém dados do formulário
+                dados_atualizados = {
+                    'titulo': request.form.get('titulo'),
+                    'sub_titulo': request.form.get('sub_titulo'),
+                    'curso': request.form.get('curso'),
+                    'nome_autor': request.form.get('nome_autor'),
+                    'sobrenome_autor': request.form.get('sobrenome_autor'),
+                    'nome_coautor': request.form.get('nome_coautor'),
+                    'sobrenome_coautor': request.form.get('sobrenome_coautor'),
+                    'ano_publicacao': request.form.get('ano_publicacao'),
+                    'instituicao': request.form.get('instituicao'),
+                    'cidade': request.form.get('cidade'),
+                    'numero_pag': request.form.get('numero_pag'),
+                    'ilustracao': request.form.get('ilustracao'),
+                    'tabela': request.form.get('tabela'),
+                    'bibliografia': request.form.get('bibliografia'),
+                    'palavras_chaves': request.form.get('palavras_chaves'),
+                    'cod_cutter': geradorCutter(request.form.get('sobrenome_autor'), request.form.get('titulo')),
+                    'cdd': request.form.get('cdd'),
+                    'tamanho': request.form.get('tamanho'),
+                }
 
-            # Atualiza no banco
-            supabase_client.table('pedidos').update(dados_atualizados).eq('id', pedido_id).execute()
-            flash("Pedido atualizado com sucesso!", "success")
-            return redirect(url_for('alunos.detalhes_pedido', pedido_id=pedido_id))
+                # Atualiza no banco
+                supabase_client.table('pedidos').update(dados_atualizados).eq('id', pedido_id).execute()
+                flash("Pedido atualizado com sucesso!", "success")
+                return redirect(url_for('aluno.detalhes_pedido', pedido_id=pedido_id))
     return render_template('aluno/detalhes.html', pedido_id=pedido_id, pedido = pedidoUser, keywords = keys)

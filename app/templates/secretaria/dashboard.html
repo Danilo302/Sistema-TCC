@@ -13,7 +13,7 @@
         <label for="statusFilter">Filtrar por Status:</label>
         <select id="statusFilter" class="form-select">
             <option value="todos">Todos</option>
-            <option value="Pendente">Pendentes</option>
+            <option value="pendente">Pendentes</option>
             <option value="Aprovado">Aprovados</option>
             <option value="Rejeitado">Rejeitados</option>
         </select>
@@ -31,5 +31,18 @@
         {% endfor %}
     </ul>
 </div>
-<script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
+<script >
+    document.getElementById('statusFilter').addEventListener('change', function() {
+    const selectedStatus = this.value;
+    const pedidoItems = document.querySelectorAll('.pedido-item');
+
+    pedidoItems.forEach(item => {
+        const pedidoStatus = item.getAttribute('data-status');
+        if (selectedStatus === 'todos' || pedidoStatus === selectedStatus) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});</script>
 {% endblock%}

@@ -25,16 +25,16 @@ function confirmarAcao(acao, url) {
     }
 }
 
-document.getElementById('statusFilter').addEventListener('change', function() {
-    const selectedStatus = this.value;
-    const pedidoItems = document.querySelectorAll('.pedido-item');
+// document.getElementById('statusFilter').addEventListener('change', function() {
+//     const selectedStatus = this.value;
+//     const pedidoItems = document.querySelectorAll('.pedido-item');
 
-    pedidoItems.forEach(item => {
-        const pedidoStatus = item.getAttribute('data-status');
-        if (selectedStatus === 'todos' || pedidoStatus === selectedStatus) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-});
+//     pedidoItems.forEach(item => {
+//         const pedidoStatus = item.getAttribute('data-status');
+//         if (selectedStatus === 'todos' || pedidoStatus === selectedStatus) {
+//             item.style.display = 'block';
+//         } else {
+//             item.style.display = 'none';
+//         }
+//     });
+// });

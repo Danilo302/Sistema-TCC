@@ -1,0 +1,260 @@
+/* Estilo Geral */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container principal */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+/* Título */
+h2 {
+    font-size: 24px;
+    color: #004085;
+    margin-bottom: 20px;
+}
+
+/* Parágrafo inicial */
+p {
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 20px;
+}
+
+/* Lista de pedidos */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Texto do pedido */
+li span {
+    font-size: 16px;
+    color: #333333;
+}
+
+/* Link de detalhes */
+li a {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+li a:hover {
+    color: #0056b3;
+}
+
+/* Botão de cadastrar novo pedido */
+a[href*="cadastrar_pedido"] {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+a[href*="cadastrar_pedido"]:hover {
+    background-color: #218838;
+}
+
+/* Mensagem de erro */
+p.text-danger {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    li span {
+        margin-bottom: 10px;
+    }
+}
+
+/* cadastro de pedidos */
+
+/* Estilização da página de cadastro de pedido */
+.container {
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #444;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4facfe;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #358de0;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #307dc9;
+}
+
+small {
+    font-size: 12px;
+    color: #777;
+}
+
+/* Checkboxes e campos adicionais */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.checkbox-label input {
+    margin-right: 10px;
+}
+
+#ilustracaoField, #tabelaField {
+    display: none;
+    padding: 10px;
+    background-color: #f0f8ff;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    margin-top: -10px;
+}
+
+#ilustracaoField input, #tabelaField input {
+    width: auto;
+    display: inline-block;
+}
+
+h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1, h2 {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+.button-group {
+    display: flex;
+    gap: 10px; /* Espaço entre os botões */
+}
+
+.btn-success {
+    background-color: #28a745; /* Verde personalizado */
+    border-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-warning {
+    background-color: #dc3545; /* Amarelo personalizado */
+    border-color: #dc3545;
+    color: black;
+}
+
+.btn-warning:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
