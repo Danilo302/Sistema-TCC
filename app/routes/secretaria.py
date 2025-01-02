@@ -13,7 +13,6 @@ def dashboard():
         
         # Carregar os pedidos do aluno
         pedidos_users = response.data
-        print(pedidos_users)
         
         return render_template('secretaria/dashboard.html',pedidos = pedidos_users)
         
@@ -27,6 +26,13 @@ def detalhes_pedido(pedido_id):
     response = supabase_client.table('pedidos').select("*").eq("id", f"{pedido_id}").execute()
     pedido_aluno = response.data[0]
     
+    if pedido_aluno:
+        # Obter o id_aluno associado ao pedido
+        id_aluno = pedido_aluno['id_aluno']
+        
+        # Consultar informações do aluno
+        aluno_response = supabase_client.table('usuarios').select("matricula, nome").eq("id", id_aluno).execute()
+        aluno = aluno_response.data[0] if aluno_response.data else None
     
     if request.method == 'POST':
         
@@ -40,4 +46,4 @@ def detalhes_pedido(pedido_id):
             flash("Pedido rejeitado com sucesso!", "success")
         return redirect(url_for('secretaria.detalhes_pedido', pedido_id=pedido_id))
     
-    return render_template('secretaria/detalhes_pedido.html', pedido = pedido_aluno)
+    return render_template('secretaria/detalhes_pedido.html', pedido = pedido_aluno, aluno=aluno)

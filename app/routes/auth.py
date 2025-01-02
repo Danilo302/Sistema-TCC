@@ -30,23 +30,6 @@ def secretaria_required(f):
     return decorated_function
 
 
-#Rota para teste
-@auth_bp.route('/listar', methods=['GET'])
-def listar():
-    try:
-        # Fazendo a consulta à tabela "usuarios"
-        response = supabase_client.table('usuarios').select('*').execute()
-
-        # Verifica se há dados retornados
-        if response.data:
-            return jsonify(response.data), 200  # Retorna os dados e o status 200 (sucesso)
-        else:
-            return jsonify({"message": "Nenhum usuário encontrado"}), 404
-    except Exception as e:
-        # Captura erros e retorna com um status 500 (erro interno do servidor)
-        return jsonify({"error": str(e)}), 500
-
-
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -60,14 +43,14 @@ def login():
         try:
             response = supabase_client.table("usuarios").select("*").eq("email", f"{email}").execute()
 
-            print(response.data[0])
+            
             user_data = response.data[0]
             
             try:
                 #corrigir isso
                 
                 if user_data["senha"] == password:
-                    print(response.data[0])
+                    
                     
 
                     if user_data:
