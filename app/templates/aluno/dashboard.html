@@ -11,8 +11,14 @@
 <ul>
     <li>
         Título: {{ pedidos.titulo }} | Status: {{ pedidos.status }}
-        
+        <div class='option-pedido'>
+        {% if pedidos.status == 'Aprovado'%}
+        <form action="{{ url_for('preencher-docx.preencher_docx', pedido_id=pedidos.id) }}" method="POST">
+            <button type="submit">Baixar ROA</button>
+        </form>
+        {% endif %}
         <a href="{{ url_for('aluno.detalhes_pedido', pedido_id=pedidos.id) }}">Detalhes</a>
+    </div>
     </li>
 </ul>
 {% else %}

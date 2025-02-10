@@ -258,3 +258,28 @@ h3 {
     background-color: #c82333;
     border-color: #bd2130;
 }
+
+.turno-radio {
+    display: flex;
+    justify-content: center;
+}
+.turno-radio input {
+    width: 20px;
+    margin-left: 30px;
+}
+
+textarea {
+    width: 100%;
+}
+
+li .option-pedido{
+    width: 50%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+li button {
+    margin: 5px 20px;
+    width: 150px;
+}

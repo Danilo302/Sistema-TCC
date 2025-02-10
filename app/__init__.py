@@ -2,6 +2,7 @@ from flask import Flask, redirect
 from app.routes.auth import auth_bp
 from app.routes.aluno import aluno_bp
 from app.routes.secretaria import secretaria_bp
+from app.routes.gerador_documento import document_bp
 
 def create_app():
     app = Flask(__name__)
@@ -11,6 +12,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(aluno_bp)
     app.register_blueprint(secretaria_bp)
+    app.register_blueprint(document_bp)
     
     @app.route('/')
     def index():

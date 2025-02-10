@@ -3,8 +3,7 @@ ficha()
 function getValueById(id) {
     const element = document.getElementById(id);
     return element ? element.getAttribute("value") || "" : "";
-  }
-  
+} 
 
 function ficha(){
 

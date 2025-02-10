@@ -78,7 +78,7 @@
             <datalist id="keys">
                 <option value="">
 
-              </datalist>
+            </datalist>
 
             
             <h3> Para preencher o campo abaixo, escolha o item da tabela CDD que mais se identifica com o resumo do seu TCC.</h3>
@@ -89,6 +89,48 @@
                 {% endfor %}
             </select>
             
+            <h2>Informções adicionais</h2>
+
+            <label for="semestre">Semestre:</label>
+            <select id="semestre" name="semestre">
+                <option value="2025.1">2025.1</option>
+                <option value="2024.2">2024.2</option>
+                <option value="2024.1">2024.1</option>
+                <option value="2023.2">2023.2</option>
+                <option value="2023.1">2023.1</option>
+            </select>
+
+            <label for="data-defesa">Data de defesa:</label>
+            <input type="date" id="data-defesa" name="data-defesa">
+
+            <label for="horario">Horario:</label>
+            <input type="time" id="horario" name="horario">
+
+            <label>Turno:</label>
+            <div class="turno-radio">
+            <input type="radio" value="manhâ" id="turno" name="turno">Manhã
+            <input type="radio" value="noite" id="turno" name="turno">Noite
+            </div>
+
+            <label for="orientador">Orientador:</label>
+            <input type="text" id="orientador" name="orientador" required>
+
+            <label for="tema_pesquisa">Tema da Pesquisa:</label>
+            <input type="text" id="tema_pesquisa" name="tema_pesquisa" required>
+
+            <label for="atividades_desenvolvidas">Atividades Desenvolvidas:</label>
+            <textarea id="atividades_desenvolvidas" name="atividades_desenvolvidas" rows="4" required></textarea>
+
+            <label for="contribuicoes_pesquisa">Contribuições da Pesquisa:</label>
+            <textarea id="contribuicoes_pesquisa" name="contribuicoes_pesquisa" rows="4" required></textarea>
+
+            <h2>Membros da banca</h2>
+
+            <label for="membro1">Membro 1:</label>
+            <input type="text" id="membro1" name="membro1" required>
+
+            <label for="membro2">Membro 2:</label>
+            <input type="text" id="membro2" name="membro2" required>
             
             <button type="submit">Enviar pedido</button>
         </form>

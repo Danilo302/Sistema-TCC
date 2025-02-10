@@ -49,7 +49,16 @@ def cadastrar_pedido():
         keywords =  request.form.get("keywords")
         cutter =  geradorCutter(sobrenomeAutor,titulo)
         cdd =  request.form.get("cdd")
-        
+        semestre = request.form.get("semestre")
+        data_defesa = request.form.get("data-defesa")
+        horario = request.form.get("horario")
+        turno = request.form.get("turno")
+        orientador = request.form.get("orientador")
+        tema_pesquisa = request.form.get("tema_pesquisa")
+        atividades_desenvolvidas = request.form.get("atividades_desenvolvidas")
+        contribuicoes_pesquisa = request.form.get("contribuicoes_pesquisa")
+        membro1 = request.form.get("membro1")
+        membro2 = request.form.get("membro2")
         
         
         response = (supabase_client.table('pedidos').insert({
@@ -71,7 +80,17 @@ def cadastrar_pedido():
             "bibliografia": bibliografia,
             "palavras_chaves": keywords,
             "cod_cutter": cutter,
-            "cdd": cdd
+            "cdd": cdd,
+            "semestre": semestre,
+            "data_defesa": data_defesa,
+            "horario": horario,
+            "turno": turno,
+            "orientador":orientador,
+            "tema_pesquisa":tema_pesquisa,
+            "atividades_desenvolvidas": atividades_desenvolvidas,
+            "contribuicoes_pesquisa": contribuicoes_pesquisa,
+            "membro1": membro1,
+            "membro2": membro2
             
         }).execute())
         
