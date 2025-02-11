@@ -22,27 +22,6 @@ def preencher_docx(pedido_id):
         # Consultar informações do aluno
     aluno_response = supabase_client.table('usuarios').select("matricula, nome").eq("id", id_aluno).execute()
     aluno_dados = aluno_response.data[0]
-    # Receber dados do formulário ou JSON
-    # dados = {
-    #     "semestre": "2023.2",
-    #     "data_defesa": "10/12/2023",
-    #     "horario": "14:00",
-    #     "aluno": "João Silva",
-    #     "curso": "Engenharia de Software",
-    #     "matricula": "123456",
-    #     "turno": "Noturno",
-    #     "orientador": "Prof. Maria Oliveira",
-    #     "tema_pesquisa": "Inteligência Artificial",
-    #     "titulo_provisorio": "Aplicações de IA em Sistemas Educacionais",
-    #     "atividades_desenvolvidas": "Revisão bibliográfica, desenvolvimento de protótipos",
-    #     "contribuicoes_pesquisa": "Novos métodos de aprendizado de máquina",
-    #     "membro1": "Prof. Carlos Souza",
-    #     "membro2": "Prof. Ana Lima",
-    #     "data": "10/12/2023",
-    #     "assinatura_orientador": "Maria Oliveira",
-    #     "secretaria_academica": "Fernanda Costa",
-    #     "ciencia_aluno": "João Silva"
-    # }
 
     # Carregar o template DOCX
     doc = Document('app/utils/template.docx')
@@ -82,9 +61,6 @@ def preencher_docx(pedido_id):
     substituir_placeholder(doc, '{{membro1}}', dados.get('membro1', ''))
     substituir_placeholder(doc, '{{membro2}}', dados.get('membro2', ''))
     substituir_placeholder(doc, '{{data}}', data)
-    # substituir_placeholder(doc, '{{assinatura_orientador}}', dados.get('assinatura_orientador', ''))
-    # substituir_placeholder(doc, '{{secretaria_academica}}', dados.get('secretaria_academica', ''))
-    # substituir_placeholder(doc, '{{ciencia_aluno}}', dados.get('ciencia_aluno', ''))
 
     output = BytesIO()
     doc.save(output)
