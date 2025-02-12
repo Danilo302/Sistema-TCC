@@ -21,7 +21,7 @@ def dashboard():
         response = supabase_client.table('pedidos').select("*").eq("id_aluno", f"{session['user_id']}").execute()
         
         # Carregar os pedidos do aluno
-        pedidoUser = response.data[0] if response.data else None
+        pedidoUser = response.data if response.data else None
         
         return render_template('aluno/dashboard.html',pedidos = pedidoUser)
     flash('Acesso não autorizado.', 'danger')

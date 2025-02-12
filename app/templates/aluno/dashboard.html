@@ -9,17 +9,19 @@
 
 {% if pedidos %}
 <ul>
+    {% for pedido in pedidos %}
     <li>
-        Título: {{ pedidos.titulo }} | Status: {{ pedidos.status }}
+        Título: {{ pedido.titulo }} | Status: {{ pedido.status }}
         <div class='option-pedido'>
-        {% if pedidos.status == 'Aprovado'%}
-        <form action="{{ url_for('preencher-docx.preencher_docx', pedido_id=pedidos.id) }}" method="POST">
+        {% if pedido.status == 'Aprovado'%}
+        <form action="{{ url_for('preencher-docx.preencher_docx', pedido_id=pedido.id) }}" method="POST">
             <button type="submit">Baixar ROA</button>
         </form>
         {% endif %}
-        <a href="{{ url_for('aluno.detalhes_pedido', pedido_id=pedidos.id) }}">Detalhes</a>
+        <a href="{{ url_for('aluno.detalhes_pedido', pedido_id=pedido.id) }}">Detalhes</a>
     </div>
     </li>
+    {% endfor %}
 </ul>
 {% else %}
 <p>Você ainda não fez nenhum pedido de TCC.</p>

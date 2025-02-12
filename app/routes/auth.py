@@ -78,22 +78,27 @@ def login():
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        nome = request.form.get('nome')
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        role = request.form.get('role')  # 'aluno' ou 'secretaria'
+        matricula = request.form.get('matricula')
+        
 
         if password != confirm_password:
-            flash('As senhas não coincidem.', 'danger')
+            print('As senhas não coincidem.', 'danger')
             return redirect(url_for('auth.register'))
 
         # Tentativa de registro no Supabase
         try:
-            response = supabase_client.auth.sign_up(
-                email=email,
-                password=password,
-                user_metadata={'role': role}
-            )
+            response = supabase_client.table('usuarios').insert({
+                'nome':nome,
+                'email':email,
+                'senha':password,
+                'tipo':'aluno',
+                'matricula':matricula
+            }).execute()
+            
             flash('Registro realizado com sucesso! Faça login.', 'success')
             return redirect(url_for('auth.login'))
         except Exception as e:
