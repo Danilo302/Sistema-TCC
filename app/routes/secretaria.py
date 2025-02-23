@@ -63,3 +63,14 @@ def detalhes_pedido(pedido_id):
         return redirect(url_for('secretaria.detalhes_pedido', pedido_id=pedido_id))
     
     return render_template('secretaria/detalhes_pedido.html', pedido = pedido_aluno, aluno=aluno)
+
+@secretaria_bp.route('/ficha_catalografica/<uuid:ficha_id>', methods=['GET', 'POST'])
+@secretaria_required
+def ficha_catalografica(ficha_id):
+    response = supabase_client.table('ficha_catalografica').select("*").eq("id", f"{ficha_id}").execute()
+    ficha_catalografica_aluno = response.data[0]
+    id_aluno = ficha_catalografica_aluno['id_aluno']
+    
+    aluno_response = supabase_client.table('usuarios').select("matricula, nome").eq("id", id_aluno).execute()
+    aluno = aluno_response.data[0] if aluno_response.data else None
+    return render_template('secretaria/ficha_catalografica_aluno.html', ficha = ficha_catalografica_aluno, aluno = aluno)

@@ -28,7 +28,7 @@
             <strong>Status:</strong> {{ pedido.status }} <br>
             <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}" class="btn-detalhes">Detalhes</a>
                 {% if pedido.ficha and pedido.status == 'Aprovado' %}
-                    <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}" class="btn-detalhes">Ficha Catalográfica</a>
+                    <a href="{{ url_for('secretaria.ficha_catalografica', ficha_id=pedido.ficha) }}" class="btn-detalhes">Ficha Catalográfica</a>
                 {% endif %}
         </li>
         {% endfor %}
