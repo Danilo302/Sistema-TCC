@@ -9,12 +9,24 @@ secretaria_bp = Blueprint('secretaria', __name__, url_prefix='/secretaria')
 def dashboard():
     if 'role' in session and session['role'] == 'secretaria':
         # Carregar os pedidos dos alunos
-        response = supabase_client.table('pedidos').select("*").execute()
-        
+        response = supabase_client.table('pedidos_roa').select("*").execute()
         # Carregar os pedidos do aluno
         pedidos_users = response.data
         
-        return render_template('secretaria/dashboard.html',pedidos = pedidos_users)
+        aluno_response = supabase_client.table('usuarios').select("id, nome").execute()
+        alunos = aluno_response.data
+        
+        ficha_response = supabase_client.table('ficha_catalografica').select("*").execute()
+        fichasCatalograficas = ficha_response.data
+        
+        for aluno in alunos:
+            for pedido in pedidos_users:
+                if aluno['id'] == pedido['id_aluno']:
+                    pedido['nome_aluno'] = aluno['nome']
+                for ficha in fichasCatalograficas:
+                    if pedido['id_aluno'] == ficha['id_aluno']:
+                        pedido['ficha'] = ficha['id']
+        return render_template('secretaria/dashboard.html',pedidos = pedidos_users,alunos = aluno_response, fichas = fichasCatalograficas)
         
     flash('Acesso não autorizado.', 'danger')
     return redirect(url_for('auth.login'))
@@ -23,7 +35,7 @@ def dashboard():
 @secretaria_required
 def detalhes_pedido(pedido_id):
     # Carregar informações do pedido
-    response = supabase_client.table('pedidos').select("*").eq("id", f"{pedido_id}").execute()
+    response = supabase_client.table('pedidos_roa').select("*").eq("id", f"{pedido_id}").execute()
     pedido_aluno = response.data[0]
     
     if pedido_aluno:
@@ -36,13 +48,17 @@ def detalhes_pedido(pedido_id):
     
     if request.method == 'POST':
         
+        obs = request.form.get('obs')
+        if obs :
+            supabase_client.table('pedidos_roa').update({'obs': obs}).eq('id', pedido_id).execute()
+        
         acao = request.form.get('acao')
         print(acao)
         if acao == 'aprovar':
-            supabase_client.table('pedidos').update({'status': 'Aprovado'}).eq('id', pedido_id).execute()
+            supabase_client.table('pedidos_roa').update({'status': 'Aprovado'}).eq('id', pedido_id).execute()
             flash("Pedido aprovado com sucesso!", "success")
-        elif acao == 'rejeitar':
-            supabase_client.table('pedidos').update({'status': 'Rejeitado'}).eq('id', pedido_id).execute()
+        elif acao == 'reprovar':
+            supabase_client.table('pedidos_roa').update({'status': 'Reprovado'}).eq('id', pedido_id).execute()
             flash("Pedido rejeitado com sucesso!", "success")
         return redirect(url_for('secretaria.detalhes_pedido', pedido_id=pedido_id))
     

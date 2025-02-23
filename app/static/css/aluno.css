@@ -70,7 +70,7 @@ li a:hover {
 }
 
 /* Botão de cadastrar novo pedido */
-a[href*="cadastrar_pedido"] {
+a[href*="cadastrar_pedido"],a[href*="cadastrar_ficha_catalografica"] {
     display: inline-block;
     margin-top: 20px;
     background-color: #28a745;
@@ -83,7 +83,7 @@ a[href*="cadastrar_pedido"] {
     transition: background-color 0.3s ease;
 }
 
-a[href*="cadastrar_pedido"]:hover {
+a[href*="cadastrar_pedido"]:hover, a[href*="cadastrar_ficha_catalografica"]:hover {
     background-color: #218838;
 }
 

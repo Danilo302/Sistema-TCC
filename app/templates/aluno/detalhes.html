@@ -11,82 +11,59 @@
                 <p class="card-text"><strong>Status:</strong> {{ pedido.status }}</p>
             </div>
         </div>
-        {% if pedido.status == "pendente" %}
+        {% if pedido.status == "Pendente" %}
             <form method="POST">
-                <div class="form-group">
-                    <label for="nome_autor">Nome do Autor</label>
-                    <input type="text" class="form-control" id="nome_autor" name="nome_autor" value="{{ pedido.nome_autor }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="sobrenome_autor">Sobrenome do Autor</label>
-                    <input type="text" class="form-control" id="sobrenome_autor" name="sobrenome_autor" value="{{ pedido.sobrenome_autor }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="nome_coautor">Nome do Coautor</label>
-                    <input type="text" class="form-control" id="nome_coautor" name="nome_coautor" value="{{ pedido.nome_coautor }}">
-                </div>
-                <div class="form-group">
-                    <label for="sobrenome_coautor">Sobrenome do Coautor</label>
-                    <input type="text" class="form-control" id="sobrenome_coautor" name="sobrenome_coautor" value="{{ pedido.sobrenome_coautor }}">
-                </div>
-                <div class="form-group">
-                    <label for="titulo">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" value="{{ pedido.titulo }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="sub_titulo">Subtítulo</label>
-                    <input type="text" class="form-control" id="sub_titulo" name="sub_titulo" value="{{ pedido.sub_titulo }}">
-                </div>
-                <div class="form-group">
-                    <label for="curso">Curso</label>
-                    <input type="text" class="form-control" id="curso" name="curso" value="{{ pedido.curso }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="ano_publicacao">Ano de Publicação</label>
-                    <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" value="{{ pedido.ano_publicacao }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="instituicao">Instituição</label>
-                    <input type="text" class="form-control" id="instituicao" name="instituicao" value="{{ pedido.instituicao }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="cidade">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" value="{{ pedido.cidade }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="numero_pag">Número de Páginas</label>
-                    <input type="number" class="form-control" id="numero_pag" name="numero_pag" value="{{ pedido.numero_pag }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="ilustracao">Ilustração</label>
-                    <input type="number" class="form-control" id="ilustracao" name="ilustracao" value="{{ pedido.ilustracao }}">
-                </div>
-                <div class="form-group">
-                    <label for="tabela">Tabela</label>
-                    <input type="number" class="form-control" id="tabela" name="tabela" value="{{ pedido.tabela }}">
-                </div>
-                <div class="form-group">
-                    <label for="bibliografia">Bibliografia</label>
-                    <input type="text" class="form-control" id="bibliografia" name="bibliografia" value="{{ pedido.bibliografia }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="palavras_chaves">Palavras-Chave</label>
-                    <input type="text" class="form-control" id="palavras_chaves" name="palavras_chaves" value="{{ pedido.palavras_chaves }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="cod_cutter">Código Cutter</label>
-                    <input type="text" class="form-control" id="cod_cutter" name="cod_cutter" value="{{ pedido.cod_cutter }}" disabled="disabled">
-                </div>
-                <div class="form-group">
-                    <label for="cdd">CDD</label>
-                    <input type="text" class="form-control" id="cdd" name="cdd" value="{{ pedido.cdd }} " disabled="disabled">
-                    <input type="hidden" name="cdd" value="{{ pedido.cdd }}">
-                    
-                </div>
-                <div class="form-group">
-                    <label for="tamanho">Tamanho</label>
-                    <input type="number" class="form-control" id="tamanho" name="tamanho" value="{{ pedido.tamanho }}">
-                </div>
+                <label for="titulo_provisorio">Título provisorio:</label>
+            <input type="text" id="titulo_provisorio" name="titulo_provisorio" value="{{ pedido.titulo_provisorio }}" required>
+
+
+            <label for="curso">Curso:</label>
+            <select id="curso" name="curso" required value="{{ pedido.curso }}">
+                <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+                <option value="Sistemas de Informação">Sistemas de Informação</option>
+                <option value="Gestão Ambiental">Gestão Ambiental</option>
+            </select>
+
+            <label for="semestre">Semestre:</label>
+            <select id="semestre" name="semestre" value="{{ pedido.semestre }}">
+                <option value="2025.1">2025.1</option>
+                <option value="2024.2">2024.2</option>
+                <option value="2024.1">2024.1</option>
+                <option value="2023.2">2023.2</option>
+                <option value="2023.1">2023.1</option>
+            </select>
+
+            <label for="data-defesa">Data de defesa:</label>
+            <input type="date" id="data-defesa" name="data-defesa" value="{{ pedido.data_defesa }}">
+
+            <label for="horario">Horario:</label>
+            <input type="time" id="horario" name="horario" value="{{ pedido.horario }}">
+
+            <label>Turno:</label>
+            <div class="turno-radio">
+            <input type="radio" value="manhâ" id="turno" name="turno">Manhã
+            <input type="radio" value="noite" id="turno" name="turno">Noite
+            </div>
+
+            <label for="orientador">Orientador:</label>
+            <input type="text" id="orientador" name="orientador" required value="{{ pedido.orientador }}">
+
+            <label for="tema_pesquisa">Tema da Pesquisa:</label>
+            <input type="text" id="tema_pesquisa" name="tema_pesquisa" required value="{{ pedido.tema_pesquisa }}">
+
+            <label for="atividades_desenvolvidas">Atividades Desenvolvidas:</label>
+            <textarea id="atividades_desenvolvidas" name="atividades_desenvolvidas" rows="4" value="{{ pedido.atividades_desenvolvidas }}"></textarea>
+
+            <label for="contribuicoes_pesquisa">Contribuições da Pesquisa:</label>
+            <textarea id="contribuicoes_pesquisa" name="contribuicoes_pesquisa" rows="4" value="{{ pedido.contribuicoes }}"></textarea>
+
+            <h2>Membros da banca</h2>
+
+            <label for="membro1">Membro 1:</label>
+            <input type="text" id="membro1" name="membro1" required value="{{ pedido.membro1 }}">
+
+            <label for="membro2">Membro 2:</label>
+            <input type="text" id="membro2" name="membro2" required value="{{ pedido.membro2 }}">
                 <div class="button-group mt-3">
                     <button type="submit" class="btn btn-success">Salvar Alterações</button>
                     <button type="submit" name="delete" value="1" class="btn btn-warning" onclick="return confirm('Tem certeza que deseja deletar este pedido?');">
@@ -95,7 +72,7 @@
                 </div>
             </form>
         {% else %}
-            <p class="text-danger">Este pedido já foi {{ pedido.status.lower() }} e não pode ser editado.</p>
+            <p class="text-danger">Este pedido já foi {{ pedido.status }} e não pode ser editado.</p>
         {% endif %}
     {% else %}
         <p class="text-danger">Pedido não encontrado.</p>

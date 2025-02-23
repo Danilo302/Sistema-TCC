@@ -13,48 +13,50 @@
     {% if pedido %}
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title" id="titulo">Título: {{ pedido.titulo }}</h2>
+                <h2 class="card-title" id="titulo">Título: {{ pedido.titulo_provisorio }}</h2>
 
-                <p class="card-text" id="subtitulo"><strong>Subtítulo:</strong> {{ pedido.sub_titulo or "Não informado" }}</p>
-                <p class="card-text" id="autor"><strong>Autor:</strong> {{ pedido.nome_autor }}</p>
-                <p class="card-text" id="sobrenome_autor"><strong>Sobrenome do Autor:</strong> {{ pedido.sobrenome_autor }}</p>
-                <p class="card-text" id="coautor"><strong>Coautor:</strong> {{ pedido.nome_coautor }}</p>
-                <p class="card-text" id="sobrenome_coautor"><strong>Sobrenome do Coautor:</strong> {{ pedido.sobrenome_coautor }}</p>
                 <p class="card-text" id="curso"><strong>Curso:</strong> {{ pedido.curso }}</p>
-                <p class="card-text" id="ano"><strong>Ano de Publicação:</strong> {{ pedido.ano_publicacao }}</p>
-                <p class="card-text" id="instituicao"><strong>Instituição:</strong> {{ pedido.instituicao }}</p>
-                <p class="card-text" id="cidade"><strong>Cidade:</strong> {{ pedido.cidade }}</p>
-                <p class="card-text" id="numero_pag"><strong>Número de Páginas:</strong> {{ pedido.numero_pag }}</p>
-                <p class="card-text" id="ilustracao"><strong>Ilustração:</strong> {{ pedido.ilustracao or "Não informado" }}</p>
-                <p class="card-text" id="tabela"><strong>Tabela:</strong> {{ pedido.tabela or "Não informado" }}</p>
-                <p class="card-text" id="bibliografia"><strong>Bibliografia:</strong> {{ pedido.bibliografia }}</p>
-                <p class="card-text" id="palavras_chaves"><strong>Palavras-Chave:</strong> {{ pedido.palavras_chaves }}</p>
-                <p class="card-text" id="cod_cutter"><strong>Código Cutter:</strong> {{ pedido.cod_cutter }}</p>
-                <p class="card-text" id="cdd"><strong>CDD:</strong> {{ pedido.cdd }}</p>
-                <p class="card-text" id="tamanho"><strong>Tamanho:</strong> {{ pedido.tamanho }}</p>
+                <p class="card-text" id="semestre"><strong>Semestre:</strong> {{ pedido.semestre }}</p>
+                <p class="card-text" id="data-defesa"><strong>Data de defesa:</strong> {{ pedido.data_defesa }}</p>
+                <p class="card-text" id="horario"><strong>Horario:</strong> {{ pedido.horario }}</p>
+                <p class="card-text" id="turno"><strong>Turno:</strong> {{ pedido.turno }}</p>
+                <p class="card-text" id="orientador"><strong>Orientador:</strong> {{ pedido.orientador }}</p>
+                <p class="card-text" id="tema_pesquisa"><strong>Tema da pesquisa:</strong> {{ pedido.tema_pesquisa }}</p>
+                <p class="card-text" id="atividades_desenvolvidas"><strong>Atividades desenvolvidas:</strong> {{ pedido.atividades_desenvolvidas }}</p>
+                <p class="card-text" id="contribuicoes_pesquisa"><strong>Contribuições da pesquisa:</strong> {{ pedido.contribuicoes }}</p>
+                
+                <h3>Membros da Banca</h3>
+                <p class="card-text" id="membro1"><strong>Membro 1:</strong> {{ pedido.membro1 }}</p>
+                <p class="card-text" id="membro2"><strong>Membro 2:</strong> {{ pedido.membro2 }}</p>
+                <br>
                 <p class="card-text" id="status"><strong>Status:</strong> {{ pedido.status }}</p>
         
 
-                <p class="card-text" id="data_envio" value="{{ pedido.data_envio[:10] | replace('-', '/') }}">
-                <strong>Data de Envio:</strong> {{ pedido.data_envio[:10] | replace('-', '/') }}
+                <p class="card-text" id="data_envio" value="{{ pedido.created_at[:10] | replace('-', '/') }}">
+                <strong>Data de Envio:</strong> {{ pedido.created_at[:10] | replace('-', '/') }}
                 </p>
 
             </div>
         </div>
 
         <hr>
-        {% if pedido.status == 'pendente' %}
+        {% if pedido.status == 'Pendente' %}
             <button type="button" name="acao" value="aprovar" class="btn btn-success" onclick="confirmarAcao('aprovar','{{ pedido.id }}')">Aprovar</button>
-            <button type="button" name="acao" value="rejeitar" class="btn btn-danger" onclick="confirmarAcao('rejeitar','{{ pedido.id }}')">Rejeitar</button>
+            <button type="button" name="acao" value="reprovar" class="btn btn-danger" onclick="confirmarAcao('reprovar','{{ pedido.id }}')">Reprovar</button>
         <form id="confirmForm" method="POST" style="display: none;" ></form>
         {% elif pedido.status == 'Aprovado'%}
         
-            <div id="result" class="result">
-
-            
+            <div >
+                <h4 style="color: green; font-weight: bold;">Aluno Aprovado para apresentar</h4>
             </div>
-            <button id="downloadPdf" >Baixar Ficha em PDF</button>
+        {% elif pedido.status == 'Reprovado'%}
+            <form method="POST" class="justificativa-reprovacao">
+            <label for="obs">Justificar reprovação:</label>
+            <textarea id="obs" name="obs" rows="4" required ></textarea>
+            <button type="submit">Enviar</button>
+            </form>
         {% endif %}
+
     {% else %}
         <p class="text-danger">Pedido não encontrado.</p>
     {% endif %}

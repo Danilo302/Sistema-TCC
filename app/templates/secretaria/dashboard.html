@@ -13,9 +13,9 @@
         <label for="statusFilter">Filtrar por Status:</label>
         <select id="statusFilter" class="form-select">
             <option value="todos">Todos</option>
-            <option value="pendente">Pendentes</option>
+            <option value="Pendente">Pendentes</option>
             <option value="Aprovado">Aprovados</option>
-            <option value="Rejeitado">Rejeitados</option>
+            <option value="Reprovado">Reprovado</option>
         </select>
     </div>
 
@@ -23,10 +23,13 @@
     <ul id="pedidoList" class="pedido-list">
         {% for pedido in pedidos %}
         <li class="pedido-item" data-status="{{ pedido.status }}">
-            <strong>Título:</strong> {{ pedido.titulo }} <br>
-            <strong>Aluno:</strong> {{ pedido.nome_autor }} <br>
+            <strong>Título:</strong> {{ pedido.titulo_provisorio }} <br>
+            <strong>Aluno:</strong> {{ pedido.nome_aluno }}<br>
             <strong>Status:</strong> {{ pedido.status }} <br>
             <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}" class="btn-detalhes">Detalhes</a>
+                {% if pedido.ficha and pedido.status == 'Aprovado' %}
+                    <a href="{{ url_for('secretaria.detalhes_pedido', pedido_id=pedido.id) }}" class="btn-detalhes">Ficha Catalográfica</a>
+                {% endif %}
         </li>
         {% endfor %}
     </ul>
