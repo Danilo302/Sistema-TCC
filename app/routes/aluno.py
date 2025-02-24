@@ -104,7 +104,7 @@ def detalhes_pedido(pedido_id):
                 # Atualiza no banco
                 supabase_client.table('pedidos_roa').update(dados_atualizados).eq('id', pedido_id).execute()
                 flash("Pedido atualizado com sucesso!", "success")
-                return redirect(url_for('aluno.detalhes_pedido', pedido_id=pedido_id))
+                return redirect(url_for('aluno.dashboard', pedido_id=pedido_id))
     return render_template('aluno/detalhes.html', pedido_id=pedido_id, pedido = pedidoUser)
 
 @aluno_bp.route('/cadastrar_ficha_catalografica', methods=['GET', 'POST'])
@@ -152,6 +152,7 @@ def cadastrar_ficha_catalografica():
             "cdd": cdd
             }).execute())
         
+        flash('Cadastro de ficha catalografica realizado com sucesso!','success')
         return redirect(url_for('aluno.dashboard'))
         
     return render_template('aluno/cadastrar_ficha_catalografica.html',keywords = keys )

@@ -51,7 +51,7 @@ def detalhes_pedido(pedido_id):
         obs = request.form.get('obs')
         if obs :
             supabase_client.table('pedidos_roa').update({'obs': obs}).eq('id', pedido_id).execute()
-        
+            flash("Justificativa enviada com sucesso!")
         acao = request.form.get('acao')
         print(acao)
         if acao == 'aprovar':
@@ -59,7 +59,7 @@ def detalhes_pedido(pedido_id):
             flash("Pedido aprovado com sucesso!", "success")
         elif acao == 'reprovar':
             supabase_client.table('pedidos_roa').update({'status': 'Reprovado'}).eq('id', pedido_id).execute()
-            flash("Pedido rejeitado com sucesso!", "success")
+            flash("Pedido reprovado com sucesso!", "success")
         return redirect(url_for('secretaria.detalhes_pedido', pedido_id=pedido_id))
     
     return render_template('secretaria/detalhes_pedido.html', pedido = pedido_aluno, aluno=aluno)
