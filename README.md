@@ -1,192 +1,97 @@
-# Documentação do Projeto: Sistema-TCC V2
+# Sistema-TCC V2
 
-## Visão Geral
-O Sistema-TCC V2 é uma aplicação desenvolvida para gerenciar pedidos e cadastros de TCCs. Ele permite a interação entre alunos e a secretaria, com recursos de validação, geração de fichas catalográficas e acompanhamento do status dos pedidos.
+O **Sistema-TCC V2** é uma aplicação web desenvolvida para gerenciar pedidos e cadastros de Trabalhos de Conclusão de Curso (TCCs).  
+Ela facilita a interação entre alunos e a secretaria, oferecendo recursos como validação de dados, geração de fichas catalográficas e acompanhamento do status dos pedidos.
 
----
+## 🚀 Demonstração
 
-## Estrutura do Projeto
+Acesse a aplicação: [https://sistema-tcc-six.vercel.app](https://sistema-tcc-six.vercel.app)
 
-### Diretórios e Arquivos
+## 📁 Estrutura do Projeto
 
-- *app/*  
-  Diretório principal onde estão localizados os módulos da aplicação.
+```
+Sistema-TCC/
+├── app/
+│   ├── routes/
+│   │   ├── aluno.py
+│   │   ├── auth.py
+│   │   └── secretaria.py
+│   ├── static/
+│   │   ├── css/
+│   │   └── js/
+│   │       └── gerador_ficha.js
+│   └── templates/
+├── requirements.txt
+├── run.py
+└── vercel.json
+```
 
-- *routes/*  
-  Contém os arquivos de rotas para diferentes funcionalidades.
-  - aluno.py: Gerencia as rotas e lógica relacionadas aos alunos.
-  - auth.py: Responsável pelo sistema de autenticação.
-  - secretaria.py: Gerencia as rotas para a secretaria.
+- `app/routes/`: Rotas para funcionalidades específicas:
+  - `aluno.py`: Gerencia funcionalidades dos alunos.
+  - `auth.py`: Sistema de autenticação.
+  - `secretaria.py`: Funcionalidades da secretaria.
+- `app/static/`: Arquivos estáticos (CSS, JS).
+- `app/templates/`: Templates HTML da aplicação.
+- `requirements.txt`: Dependências do projeto.
+- `run.py`: Script principal para iniciar a aplicação.
+- `vercel.json`: Configurações de deploy na Vercel.
 
-- *static/*  
-  Contém os arquivos estáticos usados no frontend.
-  - *css/*: Arquivos de estilo para personalização do sistema.
-  - *js/*:
-    - gerador_ficha.js: Contém lógica JavaScript para a geração da ficha catalográfica.
-    - script.js: Scripts gerais para a interface.
-  - *images/*: Imagens usadas na interface.
+## 🛠️ Tecnologias Utilizadas
 
-- *templates/*  
-  Contém os arquivos HTML para renderização das páginas.
-  - *aluno/*:
-    - cadastrar_pedido.html: Tela para alunos cadastrarem seus pedidos.
-    - dashboard.html: Painel principal do aluno.
-    - detalhes.html: Página de detalhes de um pedido do aluno.
-  - *auth/*:
-    - login.html: Tela de login.
-  - *secretaria/*:
-    - dashboard.html: Painel principal da secretaria.
-    - detalhes_pedido.html: Página de detalhes de pedidos para aprovação/rejeição.
+- Python 3.x
+- Flask
+- HTML5, CSS3, JavaScript, Bootstrap
+- Vercel (para deploy)
 
-- *utils/*  
-  Contém funções auxiliares e arquivos de configuração.
-  - gerador_cutter.py: Código para gerar o código Cutter.
-  - keywords.json: Palavras-chave para ajudar na categorização.
-  - cutter.json: Configurações ou referências relacionadas ao código Cutter.
+## ⚙️ Instalação e Execução
 
-- *Arquivos principais*:
-  - config.py: Configurações globais da aplicação.
-  - models.py: Modelos de dados para interagir com o banco de dados.
-  - run.py: Arquivo principal para iniciar a aplicação.
+1. Clone o repositório:
 
----
+```bash
+git clone https://github.com/Danilo302/Sistema-TCC.git
+cd Sistema-TCC
+```
 
-## Funcionalidades
+2. (Opcional) Crie um ambiente virtual:
 
-1. *Sistema de Login*
-   - *Rota*: /login
-   - Responsável pela autenticação de alunos e secretários.
+```bash
+python -m venv venv
+source venv/bin/activate      # Linux/Mac
+venv\Scripts\activate         # Windows
+```
 
-2. *Cadastro de Pedidos*
-   - *Rota*: /aluno/cadastrar_pedido
-   - Permite ao aluno preencher os dados necessários para o pedido de TCC.
+3. Instale as dependências:
 
-3. *Validação pela Secretaria*
-   - *Rota*: /secretaria/detalhes_pedido/<pedido_id>
-   - A secretaria pode aprovar ou rejeitar pedidos, alterando o status.
+```bash
+pip install -r requirements.txt
+```
 
-4. *Geração de Fichas Catalográficas*
-   - Utiliza o arquivo gerador_cutter.py e o template gerador_ficha.js para gerar a ficha baseada nos dados do pedido.
+4. Execute a aplicação:
 
-5. *Painéis Personalizados*
-   - Alunos e secretários têm painéis distintos para gerenciar seus dados e atividades.
+```bash
+python run.py
+```
 
----
+5. Acesse no navegador:
 
-## Tecnologias Utilizadas
+```
+http://localhost:5000
+```
 
-- *Backend*:
-  - Python (Flask)
-  - Supabase (Banco de Dados)
+## 🧩 Funcionalidades
 
-- *Frontend*:
-  - HTML, CSS, JavaScript
-  - Bootstrap para estilização
+- **Cadastro e Login**: Alunos e secretaria com login separado.
+- **Solicitação de Ficha Catalográfica**: Alunos solicitam diretamente no sistema.
+- **Geração Automática de Ficha Catalográfica**: Baseado nos dados preenchidos.
+- **Acompanhamento de Status**: Aluno visualiza se foi aprovado ou rejeitado.
+- **Gerenciamento pela Secretaria**: Secretaria pode aprovar ou rejeitar os pedidos.
 
-- *Outros*:
-  - JSON para configuração e dados auxiliares
 
----
+## 🤝 Contribuições
 
-# Documentação do Módulo: Autenticação
-
-## Descrição
-Este módulo gerencia a autenticação de usuários no sistema. Ele permite:
-- Login de usuários (alunos e secretaria).
-- Registro de novos usuários.
-- Logout e gerenciamento de sessões.
-- Verificação de permissões com decorators para proteger rotas específicas.
+Contribuições são bem-vindas!  
+Sinta-se à vontade para abrir [issues](https://github.com/Danilo302/Sistema-TCC/issues) ou enviar pull requests.
 
 ---
 
-## Rotas
-
-### 1. Login
-- *URL*: /auth/login
-- *Métodos*: GET, POST
-- *Descrição*: Permite ao usuário realizar login no sistema.
-- *Processo*:
-  - GET: Renderiza a página de login.
-  - POST:
-    1. Verifica as credenciais fornecidas (email e senha) consultando a tabela usuarios no Supabase.
-    2. Configura a sessão com os dados do usuário se as credenciais forem válidas.
-    3. Redireciona o usuário para o dashboard apropriado, baseado no tipo de usuário (aluno ou secretaria).
-- *Mensagens de Erro*:
-  - "Email inválido."
-  - "Senha incorreta."
-  - "Credenciais incorretas."
-- *Redirecionamento*:
-  - aluno.dashboard (para alunos).
-  - secretaria.dashboard (para secretaria).
-
----
-
-### 2. Registro
-- *URL*: /auth/register
-- *Métodos*: GET, POST
-- *Descrição*: Permite registrar novos usuários no sistema.
-- *Processo*:
-  - GET: Renderiza o formulário de registro.
-  - POST:
-    1. Verifica se as senhas coincidem.
-    2. Cria um novo usuário no Supabase usando o método sign_up e define seu tipo (aluno ou secretaria).
-    3. Retorna mensagens de sucesso ou erro dependendo do resultado.
-- *Mensagens de Erro*:
-  - "As senhas não coincidem."
-  - "Erro ao registrar. Tente novamente."
-- *Mensagem de Sucesso*:
-  - "Registro realizado com sucesso! Faça login."
-
----
-
-### 3. Logout
-- *URL*: /auth/logout
-- *Método*: GET
-- *Descrição*: Encerra a sessão do usuário atual.
-- *Processo*:
-  - Limpa os dados da sessão.
-  - Redireciona o usuário para a página de login.
-- *Mensagem*:
-  - "Você saiu do sistema."
-
----
-
-## Decorators
-
-### 1. aluno_required
-- *Descrição*: Garante que apenas usuários com o papel de aluno possam acessar a rota decorada.
-- *Funcionamento*:
-  - Verifica se session['role'] == 'aluno'.
-  - Caso contrário, redireciona para a página de login com uma mensagem de erro.
-
----
-
-### 2. secretaria_required
-- *Descrição*: Garante que apenas usuários com o papel de secretaria possam acessar a rota decorada.
-- *Funcionamento*:
-  - Verifica se session['role'] == 'secretaria'.
-  - Caso contrário, redireciona para a página de login com uma mensagem de erro.
-
----
-
-## Sessão
-
-### Dados Armazenados na Sessão:
-- user_id: Identificador único do usuário.
-- nome: Nome do usuário.
-- email: Email do usuário.
-- role: Papel do usuário (aluno ou secretaria).
-
----
-
-## Mensagens de Feedback
-
-### Sucesso:
-- "Registro realizado com sucesso! Faça login."
-- "Você saiu do sistema."
-
-### Erro:
-- "Acesso restrito. Faça login como aluno."
-- "Acesso restrito. Faça login como secretaria."
-- "As senhas não coincidem."
-- "Erro ao registrar. Tente novamente."
+Projeto desenvolvido por [Danilo302](https://github.com/Danilo302).
